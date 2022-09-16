@@ -9,7 +9,7 @@ enum Resolutions {
 }
 type VideDbType = {
     id: number
-    title: string | boolean
+    title: string | boolean | null
     author: string | boolean
     canBeDownloaded: boolean,
     minAgeRestriction: number | null
