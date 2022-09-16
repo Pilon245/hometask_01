@@ -18,8 +18,6 @@ type VideDbType = {
     availableResolutions: Resolutions[]
 }
 
-
-
 const videos: VideDbType[] = [
 
 ]
