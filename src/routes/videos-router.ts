@@ -8,7 +8,24 @@ videosRouter.get('/videos', (req: Request, res: Response) => {
     res.status(200).send(foundRepository)
     })
 videosRouter.post('/videos', (req: Request, res: Response) => {
+    const title = req.body.title
+    const author = req.body.author
+    const availableResolutions = req.body.availableResolutions
 
+    const errors: {meaasege: string, field: string}[] = []
+
+    if(!title) {
+        errors.push({field: 'title', meaasege: 'title is wrong'})
+    }
+    if(!author) {
+        errors.push({field: 'author', meaasege: 'author is wrong'})
+    }
+    if(!availableResolutions) {
+        errors.push({field: 'availableResolutions', meaasege: 'availableResolutions is wrong'})
+    }
+    if (errors.length) {
+        return res.status(400).send({erororsMessages: errors})
+    }
 
 
     const newVideos = videosRepository.createVideos
@@ -17,8 +34,6 @@ videosRouter.post('/videos', (req: Request, res: Response) => {
         req.body.availableResolutions)
     if (newVideos) {
         res.status(201).send(newVideos)
-    } else {
-        res.status(400).send(videosRepository.errorsVideos())
     }
 })
 videosRouter.get('/videos/:id', (req:Request, res:Response) => {
