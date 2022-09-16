@@ -14,13 +14,14 @@ videosRouter.post('/videos', (req: Request, res: Response) => {
 
     const errors: {message: string, field: string}[] = []
 
-    if(!title) {
+    // @ts-ignore
+    if(title.length > 20 | !title) {
         errors.push({field: 'title', message: 'title is wrong'})
     }
-    if(!author) {
+    if(!author || author.length > 20) {
         errors.push({field: 'author', message: 'author is wrong'})
     }
-    if(!availableResolutions) {
+    if(!availableResolutions || availableResolutions == false) {
         errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
     }
     if (errors.length) {
@@ -37,6 +38,26 @@ videosRouter.post('/videos', (req: Request, res: Response) => {
     }
 })
 videosRouter.get('/videos/:id', (req:Request, res:Response) => {
+    const title = req.body.title
+    const author = req.body.author
+    const availableResolutions = req.body.availableResolutions
+
+    const errors: {message: string, field: string}[] = []
+
+    // @ts-ignore
+    if(title.length > 20 | !title) {
+        errors.push({field: 'title', message: 'title is wrong'})
+    }
+    if(!author || author.length > 20) {
+        errors.push({field: 'author', message: 'author is wrong'})
+    }
+    if(!availableResolutions || availableResolutions == false) {
+        errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
+    }
+    if (errors.length) {
+        return res.status(400).send({errorsMessages: errors})
+    }
+
     const video = videosRepository.findVideosByID(+req.params.id)
     if(video) {
         res.status(200).send(video)
