@@ -61,17 +61,17 @@ export const videosRepository = {
         let Video = videos.find(p => p.id === id)
         return Video
     },
-    errorsVideos(){
-            const errors = {
-                "errorsMessages": [
-                    {
-                        "message": "Message with error explanation for certain field",
-                        "field": "What field/property of input model has error"
-                    }
-                ]
-            }
-            return errors
-    },
+    // errorsVideos(){
+    //         const errors = {
+    //             "errorsMessages": [
+    //                 {
+    //                     "message": "Message with error explanation for certain field",
+    //                     "field": "What field/property of input model has error"
+    //                 }
+    //             ]
+    //         }
+    //         return errors
+    // },
     updateVideos(id: number, title: string, author: string, availableResolutions: any, canBeDownloaded: boolean,
                  minAgeRestriction: number, publicationDate: string){
         let video = videos.find(p => p.id === id)

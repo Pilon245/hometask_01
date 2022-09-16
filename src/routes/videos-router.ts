@@ -38,6 +38,14 @@ videosRouter.post('/videos', (req: Request, res: Response) => {
     }
 })
 videosRouter.get('/videos/:id', (req:Request, res:Response) => {
+    const video = videosRepository.findVideosByID(+req.params.id)
+    if(video) {
+        res.status(200).send(video)
+    }else{
+        res.send(404)
+    }
+})
+videosRouter.put('/videos/:id', (req: Request, res:Response) =>{
     const title = req.body.title
     const author = req.body.author
     const availableResolutions = req.body.availableResolutions
@@ -58,20 +66,11 @@ videosRouter.get('/videos/:id', (req:Request, res:Response) => {
         return res.status(400).send({errorsMessages: errors})
     }
 
-    const video = videosRepository.findVideosByID(+req.params.id)
-    if(video) {
-        res.status(200).send(video)
-    }else{
-        res.send(404)
-    }
-})
-videosRouter.put('/videos/:id', (req: Request, res:Response) =>{
+
     const isUpdate = videosRepository.updateVideos(+req.params.id, req.body.title, req.body.author,
         req.body.availableResolutions, req.body.canBeDownloaded, req.body.minAgeRestriction, req.body.publicationDate)
     if (isUpdate!){
         res.send(204)
-    } else {
-        res.status(404).send(videosRepository.errorsVideos())
     }
 })
 videosRouter.delete('/videos/:id', (req: Request, res:Response) =>{
