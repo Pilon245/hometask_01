@@ -18,7 +18,7 @@ type VideDbType = {
     availableResolutions: Resolutions[]
 }
 
-const videos: VideDbType[] = [
+let videos: VideDbType[] = [
 ]
 
 const resolutions = ["P144", "P240", "P360", "P480", "P720", "P1080", "P1440", "P2160"]
@@ -91,6 +91,12 @@ export const videosRepository = {
                 return true;
             }
         }
+    }
+}
+export const videosAllData = {
+    deleteAllVideos () {
+        videos = []
+        return videos
     }
 }
 
