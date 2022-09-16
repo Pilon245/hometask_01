@@ -12,19 +12,19 @@ videosRouter.post('/videos', (req: Request, res: Response) => {
     const author = req.body.author
     const availableResolutions = req.body.availableResolutions
 
-    const errors: {meaasege: string, field: string}[] = []
+    const errors: {message: string, field: string}[] = []
 
     if(!title) {
-        errors.push({field: 'title', meaasege: 'title is wrong'})
+        errors.push({field: 'title', message: 'title is wrong'})
     }
     if(!author) {
-        errors.push({field: 'author', meaasege: 'author is wrong'})
+        errors.push({field: 'author', message: 'author is wrong'})
     }
     if(!availableResolutions) {
-        errors.push({field: 'availableResolutions', meaasege: 'availableResolutions is wrong'})
+        errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
     }
     if (errors.length) {
-        return res.status(400).send({erororsMessages: errors})
+        return res.status(400).send({errorsMessages: errors})
     }
 
 

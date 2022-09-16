@@ -25,11 +25,12 @@ const resolutions = ["P144", "P240", "P360", "P480", "P720", "P1080", "P1440", "
 
 export const videosRepository = {
     findVideos(title: string | null | undefined){
-        if (title){
-            return (204)
-        }else {
-            return videos
-        }
+        // if (title){
+        //     return (204)
+        // }else {
+        //     return videos
+        // }
+        return videos
     },
     createVideos(title: string, author: string, availableResolutions: any){
         for (let i= 0; i < availableResolutions.length; i++) {
