@@ -78,6 +78,7 @@ videosRouter.put('/videos/:id', (req: Request, res:Response) =>{
     const author = req.body.author
     const minAgeRestriction = req.body.minAgeRestriction
     const canBeDownloaded = req.body.canBeDownloaded
+    const publicationDate = req.body.publicationDate
 
 
     const errors: {message: string, field: string}[] = []
@@ -96,6 +97,9 @@ videosRouter.put('/videos/:id', (req: Request, res:Response) =>{
     }
     if(typeof canBeDownloaded !== "boolean") {
         errors.push({message: 'canBeDownloaded is wrong', field: 'canBeDownloaded'})
+    }
+    if(typeof publicationDate !== "string") {
+        errors.push({message: 'publicationDate is wrong', field: 'publicationDate'})
     }
     if (errors.length) {
         return res.status(400).send({errorsMessages: errors})
