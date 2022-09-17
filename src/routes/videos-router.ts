@@ -14,15 +14,15 @@ videosRouter.post('/videos', (req: Request, res: Response) => {
 
     const errors: {message: string, field: string}[] = []
 
-    if(!title || title.length > 40 || typeof title !== "string" || title.trim()) {
+    if(!title || title.length > 40 || typeof title !== "string") {
         errors.push({message: 'title is wrong', field: 'title',})
     }
-    if(!author || author.length > 20 || typeof author !== "string" || author.trim()) {
+    if(!author || author.length > 20 || typeof author !== "string") {
         errors.push({message: 'author is wrong', field: 'author'})
     }
-    // if(!availableResolutions || availableResolutions === false) {
-    //     errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
-    // }
+    if(availableResolutions === false) {
+        errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
+    }
     if (errors.length) {
         return res.status(400).send({errorsMessages: errors})
     }
