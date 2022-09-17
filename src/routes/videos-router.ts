@@ -15,14 +15,14 @@ videosRouter.post('/videos', (req: Request, res: Response) => {
     const errors: {message: string, field: string}[] = []
 
     if(!title || title.length > 40 || typeof title !== "string" || title.trim()) {
-        errors.push({field: 'title', message: 'author is wrong'})
+        errors.push({message: 'title is wrong', field: 'title',})
     }
     if(!author || author.length > 20 || typeof author !== "string" || author.trim()) {
-        errors.push({field: 'author', message: 'author is wrong'})
+        errors.push({message: 'author is wrong', field: 'author'})
     }
-    if(!availableResolutions || availableResolutions === false) {
-        errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
-    }
+    // if(!availableResolutions || availableResolutions === false) {
+    //     errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
+    // }
     if (errors.length) {
         return res.status(400).send({errorsMessages: errors})
     }
@@ -51,8 +51,7 @@ videosRouter.put('/videos/:id', (req: Request, res:Response) =>{
 
     const errors: {message: string, field: string}[] = []
 
-    // @ts-ignore
-    if(!title | title.length > 40) {
+    if(!title || title.length > 40) {
         errors.push({field: 'title', message: 'author is wrong'})
     }
     if(!author || author.length > 20) {
