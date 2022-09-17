@@ -9,9 +9,9 @@ const port = process.env.PORT || 5001
 app.use(express.json())
 
 app.use("/api", videosRouter)
-// app.delete('/api/all-data',(req: Request, res: Response) =>{
-//     res.status(204).send(videosAllData.deleteAllVideos())
-// })
+app.delete('/api/all-data',(req: Request, res: Response) =>{
+    res.status(204).send(videosAllData.deleteAllVideos())
+})
 
 //start app
 app.listen(port, () => {
