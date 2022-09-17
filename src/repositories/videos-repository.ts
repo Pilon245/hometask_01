@@ -10,10 +10,10 @@ enum Resolutions {
 
 type VideDbType = {
     id: number
-    title: string | boolean
-    author: string | boolean
+    title: string
+    author: string
     canBeDownloaded: boolean,
-    minAgeRestriction: number | null
+    minAgeRestriction: number | null | boolean
     createdAt: string,
     publicationDate: string,
     availableResolutions: Resolutions[]
@@ -77,7 +77,7 @@ export const videosRepository = {
     //         return errors
     // },
     updateVideos(id: number, title: string, author: string, availableResolutions: any, canBeDownloaded: boolean,
-                 minAgeRestriction: number, publicationDate: string){
+                 minAgeRestriction: number | boolean, publicationDate: string){
         let video = videos.find(p => p.id === id)
         if (video) {
             video.title = title
@@ -87,6 +87,8 @@ export const videosRepository = {
             video.minAgeRestriction = minAgeRestriction
             video.publicationDate = publicationDate
             return true
+        } else {
+            return false
         }
     },
     deleteVideos(id: number){

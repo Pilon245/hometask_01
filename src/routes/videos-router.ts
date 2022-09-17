@@ -76,6 +76,9 @@ videosRouter.put('/videos/:id', (req: Request, res:Response) =>{
     const result = availableResolutions.every((element) => arrayResolution.includes(element))
     const title = req.body.title
     const author = req.body.author
+    const minAgeRestriction = req.body.minAgeRestriction
+    const canBeDownloaded = req.body.canBeDownloaded
+
 
     const errors: {message: string, field: string}[] = []
 
@@ -88,6 +91,12 @@ videosRouter.put('/videos/:id', (req: Request, res:Response) =>{
     if(!result) {
         errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
     }
+    if(minAgeRestriction < 1 || minAgeRestriction > 18){
+        errors.push({message: 'minAgeRestriction is wrong',field: 'minAgeRestriction'})
+    }
+    if(typeof canBeDownloaded !== "boolean") {
+        errors.push({message: 'canBeDownloaded is wrong', field: 'canBeDownloaded'})
+    }
     if (errors.length) {
         return res.status(400).send({errorsMessages: errors})
     }
@@ -97,6 +106,8 @@ videosRouter.put('/videos/:id', (req: Request, res:Response) =>{
         req.body.availableResolutions, req.body.canBeDownloaded, req.body.minAgeRestriction, req.body.publicationDate)
     if (isUpdate!){
         res.send(204)
+    } else {
+        res.sendStatus(404)
     }
 })
 videosRouter.delete('/videos/:id', (req: Request, res:Response) =>{
