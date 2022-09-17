@@ -7,6 +7,7 @@ enum Resolutions {
     P1440 = 'P1440',
     P2160 = 'P2160'
 }
+
 type VideDbType = {
     id: number
     title: string | boolean
@@ -20,6 +21,8 @@ type VideDbType = {
 
 let videos: VideDbType[] = [
 ]
+
+
 
 const resolutions = ["P144", "P240", "P360", "P480", "P720", "P1080", "P1440", "P2160"]
 
@@ -39,6 +42,7 @@ export const videosRepository = {
                 var cont = 1;
             } else {
                 var cont = 0;
+                break
             }
             cont = cont * cont;
         }
@@ -51,7 +55,7 @@ export const videosRepository = {
                 minAgeRestriction: null,
                 createdAt: new Date().toISOString(),
                 publicationDate: new Date(Date.now() + (3600 * 1000 * 24)).toISOString(),
-                availableResolutions: availableResolutions
+                availableResolutions: availableResolutions || []
             }
             videos.push(newVideos)
             return newVideos

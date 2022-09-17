@@ -8,9 +8,23 @@ videosRouter.get('/videos', (req: Request, res: Response) => {
     res.status(200).send(foundRepository)
     })
 videosRouter.post('/videos', (req: Request, res: Response) => {
+    enum Resolutions {
+        P144 = 'P144',
+        P240 = 'P240',
+        P480 = 'P480',
+        P720 = 'P720',
+        P1080 = 'P1080',
+        P1440 = 'P1440',
+        P2160 = 'P2160'
+    }
+
+    const arrayResolution = Object.values(Resolutions)
+
+    let availableResolutions: Resolutions[] = req.body.availableResolutions
+
+    const result = availableResolutions.every((element) => arrayResolution.includes(element))
     const title = req.body.title
     const author = req.body.author
-    const availableResolutions = req.body.availableResolutions
 
     const errors: {message: string, field: string}[] = []
 
@@ -20,7 +34,7 @@ videosRouter.post('/videos', (req: Request, res: Response) => {
     if(!author || author.length > 20 || typeof author !== "string") {
         errors.push({message: 'author is wrong', field: 'author'})
     }
-    if(availableResolutions === false) {
+    if(!result) {
         errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
     }
     if (errors.length) {
@@ -45,19 +59,33 @@ videosRouter.get('/videos/:id', (req:Request, res:Response) => {
     }
 })
 videosRouter.put('/videos/:id', (req: Request, res:Response) =>{
+    enum Resolutions {
+        P144 = 'P144',
+        P240 = 'P240',
+        P480 = 'P480',
+        P720 = 'P720',
+        P1080 = 'P1080',
+        P1440 = 'P1440',
+        P2160 = 'P2160'
+    }
+
+    const arrayResolution = Object.values(Resolutions)
+
+    let availableResolutions: Resolutions[] = req.body.availableResolutions
+
+    const result = availableResolutions.every((element) => arrayResolution.includes(element))
     const title = req.body.title
     const author = req.body.author
-    const availableResolutions = req.body.availableResolutions
 
     const errors: {message: string, field: string}[] = []
 
-    if(!title || title.length > 40) {
-        errors.push({field: 'title', message: 'author is wrong'})
+    if(!title || title.length > 40 || typeof title !== "string") {
+        errors.push({message: 'title is wrong', field: 'title',})
     }
-    if(!author || author.length > 20) {
-        errors.push({field: 'author', message: 'author is wrong'})
+    if(!author || author.length > 20 || typeof author !== "string") {
+        errors.push({message: 'author is wrong', field: 'author'})
     }
-    if(!availableResolutions || availableResolutions == false) {
+    if(!result) {
         errors.push({message: 'availableResolutions is wrong',field: 'availableResolutions'})
     }
     if (errors.length) {
